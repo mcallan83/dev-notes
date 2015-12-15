@@ -68,7 +68,7 @@ flex-wrap: wrap-reverse;            // wrap items to additional line in reverse
 ## Combination Of "flex-direction" And "flex-wrap" Properties
 
 ```
-flex-flow: (flex-direction-property) (flex-wrap-property)
+flex-flow: (flex-direction-property) (flex-wrap-property);
 ```
 
 ## Adjust Spacing Of Multiple Lines
