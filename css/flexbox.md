@@ -8,7 +8,7 @@
 ## Enable On Container
 
 ```
-display: flex; //enable flexbox
+display: flex;                      //enable flexbox
 ```
 
 ## Horizontal Positioning
