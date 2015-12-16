@@ -1,6 +1,11 @@
 # PHP / Laravel / Eloquent
 
-## Relationships
+- [Defining Relationships](#defining-relationships)
+    + [One To One](#one-to-one)
+    + [One To Many](#one-to-many)
+    + [Many To Many](#many-to-many)
+
+## Defining Relationships
 
 ### One To One
 
