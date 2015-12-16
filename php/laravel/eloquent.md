@@ -1,6 +1,8 @@
 # PHP / Laravel / Eloquent
 
-## One To One Relationship
+## Relationships
+
+### One To One
 
 - a user that has one phone
 
@@ -12,9 +14,7 @@ class User extends Model
         return $this->hasOne('App\Phone');
     }
 }
-```
 
-```php
 class Phone extends Model
 {
     public function user()
@@ -24,6 +24,50 @@ class Phone extends Model
 }
 ```
 
+### One To Many
+
+- a post that has multiple comments
+
+```php
+class Post extends Model
+{
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+}
+
+class Comment extends Model
+{
+    public function post()
+    {
+        return $this->belongsTo('App\Post');
+    }
+}
+```
+
+### Many To Many
+
+- multiple users that can have multiple roles
+- requires joiner table
+
+```php
+class User extends Model
+{
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+}
+
+class Role extends Model
+{
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+} 
+```
 
 ## Querying Relationships -  Multiple Levels
 
