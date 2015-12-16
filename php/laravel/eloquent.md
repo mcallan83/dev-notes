@@ -74,7 +74,7 @@ class Role extends Model
 } 
 ```
 
-## Querying Relationships -  Multiple Levels
+## Querying Relationships - Multiple Levels
 
 - [Laravel – querying any level far relations with simple trick](http://softonsofa.com/laravel-querying-any-level-far-relations-with-simple-trick/)
 - queries any level of nesting and any type of relation
