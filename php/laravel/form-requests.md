@@ -9,7 +9,6 @@
 ```php
 class RegistrationRequest extends Request
 {
-
     public function all()
     {
         $attributes = parent::all();
@@ -21,6 +20,5 @@ class RegistrationRequest extends Request
         return parent::all();
 
     }
-
 }
 ```
