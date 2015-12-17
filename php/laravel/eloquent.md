@@ -4,6 +4,8 @@
     + [One To One](#one-to-one)
     + [One To Many](#one-to-many)
     + [Many To Many](#many-to-many)
+- [Inserting Related Models](#inserting-related-models)
+- [Querying Relationships](#querying-relationships)
 
 ## Defining Relationships
 
@@ -129,7 +131,9 @@ $user->save();
 
 @ todo many to many
 
-## Querying Relationships - Multiple Levels
+## Querying Relationships
+
+### Multiple Levels Deep
 
 - [Laravel – querying any level far relations with simple trick](http://softonsofa.com/laravel-querying-any-level-far-relations-with-simple-trick/)
 - queries any level of nesting and any type of relation
