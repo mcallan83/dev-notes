@@ -74,6 +74,61 @@ class Role extends Model
 } 
 ```
 
+## Inserting Related Models
+
+- save a comment to a post
+
+```php
+$comment = new Comment(['message' => 'A new comment.']);
+$post = Post::find(1);
+$post->comments()->save($comment);
+```
+
+- save multiple comments to a post
+
+```php
+$post = Post::find(1);
+
+$post->comments()->saveMany([
+    new Comment(['message' => 'A new comment.']),
+    new Comment(['message' => 'Another comment.']),
+]);
+```
+
+- when saving a many-to-many relationship, additional paramaters can be addeded to the  intermediate
+
+```php
+User::find(1)->roles()->save($role, ['expires' => $expires]);
+```
+
+- create a model from data and associate with another model
+
+```php
+$post = Post::find(1);
+
+$comment = $post->comments()->create([
+    'message' => 'A new comment.',
+]);
+```
+
+- updating a "belongs to" relationship, setting the foreign key on a child model
+
+```php
+$account = App\Account::find(10);
+$user->account()->associate($account);
+$user->save();
+```
+
+- removing a belongsTo relationship
+- resets the foreign key and the relation on the child model
+
+```php
+$user->account()->dissociate();
+$user->save();
+```
+
+@ todo many to many
+
 ## Querying Relationships - Multiple Levels
 
 - [Laravel – querying any level far relations with simple trick](http://softonsofa.com/laravel-querying-any-level-far-relations-with-simple-trick/)
