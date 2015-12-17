@@ -13,7 +13,7 @@ class RegistrationRequest extends Request
     {
         $attributes = parent::all();
 
-        $attributes['phone'] = preg_replace("/[^0-9]/", '', $input);
+        $attributes['phone'] = preg_replace("/[^0-9]/", '', $attributes['phone']);
 
         $this->replace($attributes);
 
