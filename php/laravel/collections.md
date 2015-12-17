@@ -6,6 +6,7 @@
 
 - iterates over a collection calling the given callback on each item
 - replaces the item value with the returned callback value
+- modifies the collection itself
 
 ```php
 $collection = collect([1, 2, 3, 4, 5]);
