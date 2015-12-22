@@ -15,7 +15,6 @@ $collection->transform(function ($item, $key) {
     return $item * 2;
 });
 
-$collection->all();
-
 // [2, 4, 6, 8, 10]
+$collection->all();
 ```

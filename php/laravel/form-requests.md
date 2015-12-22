@@ -12,11 +12,8 @@ class RegistrationRequest extends Request
     public function all()
     {
         $attributes = parent::all();
-
-        $attributes['phone'] = preg_replace("/[^0-9]/", '', $attributes['phone']);
-
+        $attributes['ph'] = preg_replace("/[^0-9]/", '',$attributes['ph']);
         $this->replace($attributes);
-
         return parent::all();
 
     }
