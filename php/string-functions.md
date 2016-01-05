@@ -1,13 +1,14 @@
 # PHP - String Functions
 
-- `str_replace($search, $replace, $subject)`
-    - returns a string or an array with all occurrences of _search_ in _subject_ replaced with the given _replace_ value
+- `function str_replace($searchFor, $replaceWith, $source)`
+    - returns a string or an array with all occurrences of `searchFor` in `source` replaced with the `replaceWith` value
 
     ```php
     $search = '###';
     $replace = 'black';
     $subject = '<body text="###">';
 
+    $result = str_replace($searchFor, $replaceWith, $source);
     // '<body text="black">'
-    $result = str_replace($search, $replace, $subject);
+
     ```
