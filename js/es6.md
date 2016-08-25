@@ -1,6 +1,7 @@
 # ES6 Notes
 
 - [ECMAScript 6 Compatibility Table](http://kangax.github.io/compat-table/es6/)
+- [ES6 In Depth](https://ponyfoo.com/articles/tagged/es6-in-depth)
 - [ES6 Overview in 350 Bullet Points](https://ponyfoo.com/articles/es6)
 
 ## Let, Const, and Var
@@ -16,6 +17,7 @@
 - are lexically scoped to a funciton
 
 ```js
+
 function x() {
   y = 1;
   var z = 2;
@@ -25,19 +27,24 @@ x();
 
 console.log(y); // 1
 console.log(z); // throws error
+
 ```
 
 - declared variables are created before any code is executed
 
 ```js
+
 console.log(a);                // throws error
 console.log('still going...'); // never executes
+
 ```
 
 ```js
+
 var a;
 console.log(a);                // undefined
 console.log('still going...'); // "still going..."
+
 ```
 
 ```js
@@ -47,9 +54,10 @@ console.log('still going...'); // "still going..."
 var a;
 ```
 
-- variables appearing to be implicit globals may be references to variables in an outer function scope:
+- variables appearing to be implicit globals may be references to variables in an outer function scope
 
 ```js
+
 var x = 0;              // declared global
 
 console.log(typeof z);  // undefined (`z` doesn't exist)
@@ -73,6 +81,7 @@ a();                    // calling a also calls b
 
 console.log(x, z);      // 3 5
 console.log(y);         // throws error
+
 ```
 
 - declared variables are hoisted to the top of a function
@@ -81,6 +90,7 @@ console.log(y);         // throws error
   + function declarations are hoisted only if not part of an assignment statement
 
 ```js
+
 foo = 2
 var foo;
 
@@ -88,9 +98,11 @@ var foo;
 
 var foo;
 foo = 2;
+
 ```
 
 ```js
+
 var value = 2;
 
 test();
@@ -115,6 +127,7 @@ function test () {
 value = 2;
 
 test();
+
 ```
 
 
@@ -129,8 +142,8 @@ test();
 - aren't hoisted
 - cannot redeclare twice in same scope
 
-
 ```js
+
 var a = 1;
 var b = 2;
 
@@ -144,6 +157,7 @@ if (a === 1) {
 
 console.log(a);         // 11
 console.log(b);         // 2
+
 ```
 
 - [Can I Use: let](http://caniuse.com/#feat=let)
@@ -174,18 +188,21 @@ if (AGE == 10) {
 
 console.log(AGE);       // 10
 
-const FOO;          
+const FOO; 
+
 ```
 
 - value is not immutable, but variable identifier cannot be reassigned
 
 ```js
+
 const PERSON = {name: 'Paul'};
 
 PERSON = {name: 'Bob'}; // throws error
 
 PERSON.name = 'Jake';   // object keys are not projected, so this works
 console.log(PERSON);    // {name: 'Jake'}
+
 ```
 
 - [Can I Use: const](http://caniuse.com/#feat=const)
@@ -197,3 +214,85 @@ console.log(PERSON);    // {name: 'Jake'}
 - use `const` by default
 - use `let` if rebinding is needed
 - don't use `var`in ES6
+
+## Arrow Functions
+
+- more consise over regular functions
+
+```js
+
+const names = ['jack', 'joe', 'james'];
+
+// es5 way
+const fullNameES5 = names.map(function(name) {
+    return name + " smith";
+});
+
+// es6 way
+const fullNamesES6 = names.map((name) => {
+    return `${name} smith`;
+});
+
+```
+
+- parenthesis can be dropped if there is only 1 parameter
+
+```js
+
+const names = ['jack', 'joe', 'james'];
+
+const fullNames = names.map(name => {
+    return `${name} smith`;
+});
+
+```
+
+- parenthesis are required if there are zero or more than 1 parameter
+
+```js
+
+const names = ['jack', 'joe', 'james'];
+
+const zeroParams = names.map(() => {
+    return `name`;
+});
+
+const twoParams = names.map((name, index) => {
+    return index;
+});
+```
+
+- concise body functions allow for a single expression without brackets, while attaching an implicit return
+
+```js
+
+const names = ['jack', 'joe', 'james'];
+
+const blockBody = names.map(name => {
+    return index;
+});
+
+// is equivilent to:
+
+const conciseBody = names.map(name => `${name} smith`);
+
+```
+
+- are always anonmous functions, but can be assigned to a variable
+
+```js
+
+const sayHello = name => { console.log(`Hello ${name}`) }
+sayHello('Mike'); //Hello Mike
+
+```
+
+
+
+----
+
+
+- doesn't rebind value of `this` when using arrow function inside of another function
+
+
+- {MDN: Arrow Functions}(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
