@@ -301,17 +301,10 @@ const nameData = names.map((name,index) => ({name: name, id: index}));
 
 ```
 
-
-
-
-
-
-
-
 ----
 
+_TODO_
 
 - doesn't rebind value of `this` when using arrow function inside of another function
-
-
+- add mdn\caniuse links
 - {MDN: Arrow Functions}(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
