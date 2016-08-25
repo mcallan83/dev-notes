@@ -208,7 +208,6 @@ console.log(PERSON);    // {name: 'Jake'}
 - [Can I Use: const](http://caniuse.com/#feat=const)
 - [MDN: const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
 
-
 ### using var, let, and const
 
 - use `const` by default
@@ -218,6 +217,7 @@ console.log(PERSON);    // {name: 'Jake'}
 ## Arrow Functions
 
 - more consise over regular functions
+- also called "fat arrow" functions
 
 ```js
 
@@ -234,6 +234,17 @@ const fullNamesES6 = names.map((name) => {
 });
 
 ```
+
+- are always anonmous functions, but can be assigned to a variable
+
+```js
+
+const sayHello = (name) => { console.log(`Hello ${name}`) }
+sayHello('Mike'); //Hello Mike
+
+```
+
+### Parameters
 
 - parenthesis can be dropped if there is only 1 parameter
 
@@ -262,6 +273,8 @@ const twoParams = names.map((name, index) => {
 });
 ```
 
+### Implicit Returns
+
 - concise body functions allow for a single expression without brackets, while attaching an implicit return
 
 ```js
@@ -278,14 +291,20 @@ const conciseBody = names.map(name => `${name} smith`);
 
 ```
 
-- are always anonmous functions, but can be assigned to a variable
+- when returning an object literal expression, the body needs to be wrapped in parentheses to distinguish between a block and an object
 
 ```js
 
-const sayHello = name => { console.log(`Hello ${name}`) }
-sayHello('Mike'); //Hello Mike
+const names = ['jack', 'joe', 'james'];
+
+const nameData = names.map((name,index) => ({name: name, id: index}));
 
 ```
+
+
+
+
+
 
 
 
