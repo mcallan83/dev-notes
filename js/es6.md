@@ -1,13 +1,14 @@
-# ES6 Notes
+ES6 Notes
+=========
 
 - [ECMAScript 6 Compatibility Table](http://kangax.github.io/compat-table/es6/)
 - [ES6 In Depth](https://ponyfoo.com/articles/tagged/es6-in-depth)
 - [ES6 Overview in 350 Bullet Points](https://ponyfoo.com/articles/es6)
 
-## Let, Const, and Var
+Let, Const, and Var
+-------------------
 
 - `let` and `const` are alternatives to `var` when declaring variables
-- [ES6 Let, Const and the “Temporal Dead Zone” (TDZ) in Depth](https://ponyfoo.com/articles/es6-let-const-and-temporal-dead-zone-in-depth)
 
 ### var
 
@@ -43,14 +44,14 @@ console.log('still going...'); // never executes
 
 var a;
 console.log(a);                // undefined
-console.log('still going...'); // "still going..."
+console.log('still going...'); // 'still going...'
 
 ```
 
 ```js
 console.log(typeof a);         // undefined
 console.log(a);                // undefined
-console.log('still going...'); // "still going..."
+console.log('still going...'); // 'still going...'
 var a;
 ```
 
@@ -108,8 +109,8 @@ var value = 2;
 test();
 
 function test () {
-    console.log(typeof value); // "undefined"
-    console.log(value); // undefined
+    console.log(typeof value);  // undefined
+    console.log(value);         // undefined
     var value = 3;
 }
 
@@ -119,8 +120,8 @@ var value;
 
 function test () {
     var value;
-    console.log(typeof value); // "undefined"
-    console.log(value); // undefined
+    console.log(typeof value);  // undefined
+    console.log(value);         // undefined
     value = 3;
 }
 
@@ -129,11 +130,6 @@ value = 2;
 test();
 
 ```
-
-
-- [MDN: var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var)
-- [MDN: hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting)
-- [JavaScript Variable Hoisting](https://ponyfoo.com/articles/javascript-variable-hoisting)
 
 ### let
 
@@ -159,9 +155,6 @@ console.log(a);         // 11
 console.log(b);         // 2
 
 ```
-
-- [Can I Use: let](http://caniuse.com/#feat=let)
-- [MDN: let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
 
 ### const
 
@@ -205,19 +198,29 @@ console.log(PERSON);    // {name: 'Jake'}
 
 ```
 
-- [Can I Use: const](http://caniuse.com/#feat=const)
-- [MDN: const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
-
 ### using var, let, and const
 
 - use `const` by default
 - use `let` if rebinding is needed
 - don't use `var`in ES6
 
-## Arrow Functions
+### links
+
+- [CIU: const](http://caniuse.com/#feat=const)
+- [CIU: let](http://caniuse.com/#feat=let)
+- [ES6 Let, Const and the "Temporal Dead Zone" (TDZ) in Depth](https://ponyfoo.com/articles/es6-let-const-and-temporal-dead-zone-in-depth)
+- [JavaScript Variable Hoisting](https://ponyfoo.com/articles/javascript-variable-hoisting)
+- [MDN: const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
+- [MDN: hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting)
+- [MDN: let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
+- [MDN: var](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var)
+
+Arrow Functions
+---------------
 
 - more consise over regular functions
 - also called "fat arrow" functions
+- always anonymous functions, but can be assigned to a variable
 
 ```js
 
@@ -227,55 +230,27 @@ const names = ['jack', 'joe', 'james'];
 const fullNameES5 = names.map(function(name) {
     return name + " smith";
 });
+console.log(fullNameES5);     //["jack smith", "joe smith", "james smith"]
 
 // es6 way
 const fullNamesES6 = names.map((name) => {
     return `${name} smith`;
 });
+console.log(fullNamesES6);    //["jack smith", "joe smith", "james smith"]
 
 ```
 
-- are always anonmous functions, but can be assigned to a variable
+- parenthesis can be dropped if there is only 1 parameter, but are required for zero or more than one paramaters
 
 ```js
 
-const sayHello = (name) => { console.log(`Hello ${name}`) }
-sayHello('Mike'); //Hello Mike
+() => { ... }       // no parameter
+x => { ... }        // one parameter, an identifier
+(x, y) => { ... }   // multiple parameters
 
 ```
 
-### Parameters
-
-- parenthesis can be dropped if there is only 1 parameter
-
-```js
-
-const names = ['jack', 'joe', 'james'];
-
-const fullNames = names.map(name => {
-    return `${name} smith`;
-});
-
-```
-
-- parenthesis are required if there are zero or more than 1 parameter
-
-```js
-
-const names = ['jack', 'joe', 'james'];
-
-const zeroParams = names.map(() => {
-    return `name`;
-});
-
-const twoParams = names.map((name, index) => {
-    return index;
-});
-```
-
-### Implicit Returns
-
-- concise body functions allow for a single expression without brackets, while attaching an implicit return
+- expression body functions allow for a single expression without brackets, while attaching an implicit return
 
 ```js
 
@@ -285,9 +260,9 @@ const blockBody = names.map(name => {
     return index;
 });
 
-// is equivilent to:
+// equivilent to:
 
-const conciseBody = names.map(name => `${name} smith`);
+const expressionBody = names.map(name => `${name} smith`);
 
 ```
 
@@ -301,10 +276,46 @@ const nameData = names.map((name,index) => ({name: name, id: index}));
 
 ```
 
-----
+- value of `this` is determined by the surrounding scope (lexical), meaning it has the same context as `this` in the parent scope
+- `this` can't be modified with `.call` or `.apply`
 
-_TODO_
+### links
 
-- doesn't rebind value of `this` when using arrow function inside of another function
-- add mdn\caniuse links
-- {MDN: Arrow Functions}(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+- [MDN: Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+- [ES6 Arrow Functions in Depth](https://ponyfoo.com/articles/es6-arrow-functions-in-depth)
+
+
+Default Function Paramaters
+---------------------------
+
+- parameters default to `undefined` when a value is not passed to a function, unless default values are provided
+- if a value of `underfined` is explicitly passed to a function, the function will use a default value, if provided
+
+```js
+
+function createUser(name, sex = 'male', income) {
+  return [name, gender, income];
+}
+
+createUser('john');                   // ['john', 'male', undefined]
+createUser('john', undefined);        // ['john', 'male', undefined]
+createUser('jane', 'female', 30000);  // ['jane', 'female', 30000]
+
+```
+
+- default parameters are available to later default parameters
+
+```js
+
+function getFullName(first, last, full = first + ' ' + last) {
+  return full;
+}
+
+console.log(getFullName('mike', 'smith'));              // 'mike smith'
+console.log(getFullName('mike', 'smith', 'full name')); // 'full name'
+
+```
+
+### links
+
+[MDN: Default Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
