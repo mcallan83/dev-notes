@@ -1,6 +1,8 @@
 ES6 Notes
 =========
 
+
+
 - [ECMAScript 6 Compatibility Table](http://kangax.github.io/compat-table/es6/)
 - [ES6 In Depth](https://ponyfoo.com/articles/tagged/es6-in-depth)
 - [ES6 Overview in 350 Bullet Points](https://ponyfoo.com/articles/es6)
@@ -279,11 +281,102 @@ const nameData = names.map((name,index) => ({name: name, id: index}));
 - value of `this` is determined by the surrounding scope (lexical), meaning it has the same context as `this` in the parent scope
 - `this` can't be modified with `.call` or `.apply`
 
+### when not to use arrow functions
+
+- you really need `this`
+
+```js
+
+const button = document.querySelector('#button');
+
+// bad
+button.addEventListener('click', () => {
+  console.log(this);                              \\ Window
+  this.classList.toggle('on');                    \\ throws error
+});
+
+// good
+button.addEventListener('click', function() {
+  console.log(this);                              \\ button
+  this.classList.toggle('on');                    \\ toggles
+});
+
+```
+
+- you need a method to bind to an object
+
+```js
+
+// bad
+let person = {
+  points: 20,
+  score: () => {
+    this.points++;
+  }
+}
+person.score(); // does not work since `this` is not person
+
+// good
+person= {
+  points: 20,
+  score: function() {
+    this.points++;
+  }
+}
+person.score(); // increments person.points by 1
+
+```
+
+- when you need to add a prototype method
+
+```js
+
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+const joe = new Person('Joe', 33);
+
+// bad
+Person.prototype.greet = () => {
+  return `Hello ${this.name}`
+}
+console.log(joe.greet()) // "Hello undefined"
+
+// good
+Person.prototype.greet = function() {
+  return `Hello ${this.name}`
+}
+console.log(joe.greet()) // "Hello Joe"
+
+```
+
+- when you need access to the arguments object
+
+```js
+
+// bad 
+const logArray = () => {
+  console.log(Array.from(arguments)); 
+}
+logArray(1,2,3) // throws error
+
+// good 
+const logArray = function() {
+  console.log(Array.from(arguments));
+}
+logArray(1,2,3) // [1, 2, 3]
+
+```
+
+
 ### links
 
 - [MDN: Arrow Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 - [ES6 Arrow Functions in Depth](https://ponyfoo.com/articles/es6-arrow-functions-in-depth)
-
 
 Default Function Paramaters
 ---------------------------
@@ -293,7 +386,7 @@ Default Function Paramaters
 
 ```js
 
-function createUser(name, sex = 'male', income) {
+function createUser(name, gender = 'male', income) {
   return [name, gender, income];
 }
 
@@ -319,3 +412,63 @@ console.log(getFullName('mike', 'smith', 'full name')); // 'full name'
 ### links
 
 [MDN: Default Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)
+
+Template Literals
+-----------------
+
+- utilizes backticks as opposed to single or double quotes
+- interolates variables or expressions into strings
+
+```js
+
+const name = 'Spot';
+const age = 3;
+
+const sentance = `My dog ${name} is ${age * 7} years old.`
+
+console.log(sentance); // My dog Spot is 21 years old.
+
+```
+
+- supports multiple lines
+
+```js
+
+const dog = `
+    <div class="dog">
+      <h2>${name}</h2>
+    </div>
+`;
+
+```
+
+- can be nested
+
+```js
+
+const employees = [
+  { name: 'John', age: 25 },
+  { name: 'Jack', age: 30 }
+];
+
+const html = `
+  <ul class="employees">
+    ${employees.map(person => `
+      <li>
+        ${person.name}
+        ish
+        ${person.age}
+      </li>
+    `).join('')}
+  </ul>
+`;
+
+```
+
+@todo -- template tags
+
+# links
+
+- [ES6 Template Literals in Depth](https://ponyfoo.com/articles/es6-template-strings-in-depth)
+- [MDN: Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+- [Template String Compatibility](http://kangax.github.io/compat-table/es6/#test-template_strings)
