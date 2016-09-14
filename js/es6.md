@@ -465,10 +465,177 @@ const html = `
 
 ```
 
-@todo -- template tags
+### tagged template literals
 
-# links
+- tagged template literals use a custom method to render a template
+- tag a template by placing word before opening backtick (`)that matches method name
+
+```js
+
+// simulates "normal" behavor for template rendering
+function render (template, ...expressions) {
+  return template.reduce((accumulator, part, i) => {
+    return accumulator + expressions[i - 1] + part
+  })
+}
+
+// capitalize all expressions
+function upperExpr (template, ...expressions) {
+  return template.reduce((accumulator, part, i) => {
+    return accumulator + expressions[i - 1].toUpperCase() + part
+  })
+}
+
+const name = 'jack'
+const car = 'honda civic'
+
+const text = render`hello ${name}, you ${car} is very shinny`
+const altText = upperExpr`hello ${name}, you ${car} is very shinny`
+
+console.log(text)     // hello jack, you honda civic is very shinny
+console.log(altText)  // hello JACK, you HONDA CIVIC is very shinny
+```
+
+### links
 
 - [ES6 Template Literals in Depth](https://ponyfoo.com/articles/es6-template-strings-in-depth)
+- [Demystifying Tagged Templates](https://ponyfoo.com/articles/es6-template-strings-in-depth#demystifying-tagged-templates)
 - [MDN: Template Literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 - [Template String Compatibility](http://kangax.github.io/compat-table/es6/#test-template_strings)
+
+New String Methods
+------------------
+
+.startsWith()
+
+.endsWith()
+
+.includes()
+
+.repeat()
+
+//@todo
+
+Destructuring
+-------------
+
+- extract data from arrays, objects, maps, and sets into their own variables
+
+### objects
+
+```js
+
+const person = {
+  first: 'Jack',
+  last: 'Smith',
+  country: 'US',
+  city: 'Chicago',
+  links: {
+    social: {
+      'twitter': 'http://twitter.com/jsmith',
+      'facebook': 'http://facebook.com/jsmith'
+    }
+  }
+}
+
+const { first, last} = person;
+const { twitter, facebook } = person.links.social;
+
+console.log(first) // 'Jack'
+console.log(last) // 'Smith'
+
+console.log(twitter) // 'http://twitter.com/jsmith'
+console.log(facebook) // 'http://facebook.com/jsmith'
+
+```
+
+- variables can be renamed as they are extracted
+
+```js
+
+const person = {
+  first: 'Jack',
+  last: 'Smith',
+  country: 'US',
+  city: 'Chicago',
+  links: {
+    social: {
+      'twitter': 'http://twitter.com/jsmith',
+      'facebook': 'http://facebook.com/jsmith'
+    }
+  }
+}
+
+const {facebook: fb } =  person.links.social;
+
+console.log(fb) // 'http://facebook.com/jsmith'
+
+```
+
+- defaults can be provided for variables being extracted
+
+```js
+
+const settings = { width: 300, color: 'black' }
+const { width = 100, height = 100, color = 'blue', fontSize = 20} = settings
+
+console.log(width)      // 300
+console.log(height)     // 100
+console.log(color)      // 'black'
+console.log(fontSize)   // 20
+
+```
+
+- complex example
+
+```js
+
+const { w: width = 400, h: height = 500} = { w: 800}
+
+console.log(width); // 800
+console.log(height); // 500
+
+```
+
+### arrays
+
+```js
+
+const person = ['Jack Smith', 32, 'jack@gmail.com'];
+
+// destructure first two elements in array
+const [name, age] = person;
+
+console.log(name)   // Jack Smith
+console.log(age)    // 32
+
+```
+
+- arrays of unknown length can be destructured
+
+```js
+
+const team = ['Jack', 'John', 'James', 'Jane', 'Juan'];
+
+// rest operator grabs the "rest" of the array
+const [captain, assistant, ...players] = team;
+
+console.log(captain)    // Jack
+console.log(assistant)  // Jane
+console.log(players)    // ['James', 'Jane', 'Juan']
+
+```
+
+- the values of two variables can be swapped
+
+```js
+
+let inRing = 'Hulk Hogan'
+let onSide = 'The Rock'
+
+[inRing, onSide] = [onSide, inRing];
+
+console.log(inRing) // 'The Rock'
+console.log(onSide) // 'Hulk Hogan'
+
+```
