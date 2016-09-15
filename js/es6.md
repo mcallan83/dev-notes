@@ -519,7 +519,7 @@ New String Methods
 Destructuring
 -------------
 
-- extract data from arrays, objects, maps, and sets into their own variables
+- extract data from arrays, objects, maps, and sets into distinct variables
 
 ### objects
 
@@ -572,7 +572,7 @@ console.log(fb) // 'http://facebook.com/jsmith'
 
 ```
 
-- defaults can be provided for variables being extracted
+- defaults can be provided for variables being extracted in case their values are undefined
 
 ```js
 
@@ -639,3 +639,73 @@ console.log(inRing) // 'The Rock'
 console.log(onSide) // 'Hulk Hogan'
 
 ```
+
+- defaults can be provided for variables being extracted in case their values are undefined
+
+```js
+
+const [a = 5, b = 7] = [1];
+
+console.log(a) // 1
+console.log(b) // 7
+
+```
+
+### functions
+
+- allows the returning of multiple values from a function (sort of)
+
+```js
+
+function convertCurrency(amount) {
+  return {
+    USD: amount * .75,
+    MEX: amount * 13.30,
+    AUD: amount * 1.01
+  }
+}
+
+const { USD, AUD } = convertCurrency(100);
+
+console.log(USD) // 75
+console.log(AUD) // 101
+
+```
+
+- can ignore some return values
+ 
+```js
+
+function f() {
+  return [1, 2, 3];
+}
+
+var [a, , b] = f();
+
+console.log(a); // 1
+console.log(b); // 3
+
+```
+
+- fields can be pulled from objects passed as a funciton parameter
+
+```js
+
+function getUserId({id}) {
+  return id;
+}
+
+const user = {
+  id: 100,
+  name: 'Jack'
+}
+
+console.log("ID: " + getUserId(user)); // ID: 100
+
+```
+
+### links
+
+- [Destructing assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+- [ES6 JavaScript Destructuring in Depth](https://ponyfoo.com/articles/es6-destructuring-in-depth)
+
