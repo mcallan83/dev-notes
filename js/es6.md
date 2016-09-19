@@ -538,13 +538,13 @@ const person = {
   }
 }
 
-const { first, last} = person;
-const { twitter, facebook } = person.links.social;
+const {first, last} = person;
+const {twitter, facebook} = person.links.social;
 
-console.log(first) // 'Jack'
-console.log(last) // 'Smith'
+console.log(first)    // 'Jack'
+console.log(last)     // 'Smith'
 
-console.log(twitter) // 'http://twitter.com/jsmith'
+console.log(twitter)  // 'http://twitter.com/jsmith'
 console.log(facebook) // 'http://facebook.com/jsmith'
 
 ```
@@ -566,7 +566,7 @@ const person = {
   }
 }
 
-const {facebook: fb } =  person.links.social;
+const {facebook: fbs} =  person.links.social;
 
 console.log(fb) // 'http://facebook.com/jsmith'
 
@@ -576,8 +576,8 @@ console.log(fb) // 'http://facebook.com/jsmith'
 
 ```js
 
-const settings = { width: 300, color: 'black' }
-const { width = 100, height = 100, color = 'blue', fontSize = 20} = settings
+const settings = {width: 300, color: 'black'}
+const {width = 100, height = 100, color = 'blue', fontSize = 20} = settings
 
 console.log(width)      // 300
 console.log(height)     // 100
@@ -590,7 +590,7 @@ console.log(fontSize)   // 20
 
 ```js
 
-const { w: width = 400, h: height = 500} = { w: 800}
+const {w: width = 400, h: height = 500} = {w: 800}
 
 console.log(width); // 800
 console.log(height); // 500
@@ -665,7 +665,7 @@ function convertCurrency(amount) {
   }
 }
 
-const { USD, AUD } = convertCurrency(100);
+const {USD, AUD} = convertCurrency(100);
 
 console.log(USD) // 75
 console.log(AUD) // 101
@@ -709,3 +709,148 @@ console.log("ID: " + getUserId(user)); // ID: 100
 - [Destructing assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - [ES6 JavaScript Destructuring in Depth](https://ponyfoo.com/articles/es6-destructuring-in-depth)
 
+Iterables & Looping
+-------------------
+
+- iterable - anything that can be looped over (array, string, map, set, etc...)
+
+### for
+
+```js
+
+const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
+
+for (let i = 0; i < animals.length; i++) {
+  console.log(animals[i]);
+}
+
+// Cat
+// Dog
+// Fish
+// Turtle
+
+```
+
+### forEach
+
+- simpler syntax
+- cannot use break or continue within loop body
+
+```js
+
+const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
+
+animals.forEach((animal) => console.log(animal));
+
+// Cat
+// Dog
+// Fish
+// Turtle
+
+```
+
+### forIn
+
+- only loops over index value
+- iterates of everything added to the array (even a function added to the prototype)
+
+```js
+
+const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
+
+animals.test = 1234;
+
+for (const index in animals) {
+  console.log(animals[index]);
+}
+
+// Cat
+// Dog
+// Fish
+// Turtle
+// 1234
+
+```
+
+### forOf
+
+- can't use with objects
+- doesn't interate of stuff added to the array, just array items
+
+```js
+
+const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
+
+animals.text = 1234;
+
+for(const animal of animals) {
+  console.log(animal)
+}
+
+// Cat
+// Dog
+// Fish
+// Turtle
+
+```
+
+- able to use break and continue
+
+```js
+
+const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
+
+// stop after "Dog"
+for(const animal of animals) {
+  console.log(animal)
+  if(animal == "Dog") {
+    break;
+  }
+}
+
+// Cat
+// Dog
+
+
+// skip "Dog"
+for(const animal of animals) {
+  if(animal == "Dog") {
+    continue;
+  }
+  console.log(animal);
+}
+
+// Cat
+// Fish
+// Turtle
+
+```
+
+- can loop over an iterator
+
+```js
+
+
+const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
+
+for (const animal of animals.entries()) {
+    console.log(animal);
+}
+
+// [0, "Cat"]
+// [1, "Dog"]
+// [2, "Fish"]
+// [3, "Turtle"] 
+
+// with destructuring
+for (const [i, animal] of animals.entries()) {
+    console.log(i, animal);
+}
+
+// 0 "Cat"
+// 1 "Dog"
+// 2 "Fish"
+// 3 "Turtle"
+
+
+```
