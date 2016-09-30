@@ -1,8 +1,6 @@
 ES6 Notes
 =========
 
-
-
 - [ECMAScript 6 Compatibility Table](http://kangax.github.io/compat-table/es6/)
 - [ES6 In Depth](https://ponyfoo.com/articles/tagged/es6-in-depth)
 - [ES6 Overview in 350 Bullet Points](https://ponyfoo.com/articles/es6)
@@ -910,3 +908,136 @@ for (const prop of Object.keys(dog)) {
 - [mdn - for of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
 - [mdn - for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for)
 - [mdn - forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+
+Array Methods
+-------------
+
+### .from()
+
+- on `Array` object itself, not on prototype
+- creates a new `Array` instance from:
+  - an array-li9ke object (has length property and indexed elements)
+  - or iterable object (have access its elements, such as [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set))
+
+```html
+
+<div class="people">
+  <p>Mike</p>
+  <p>Michael</p>
+  <p>Mikey</p>
+</div>
+
+```
+
+```js
+
+// NodeList, not an array
+const people = document.querySelectorAll('.people p');
+
+// throws error because people is not an array
+const names = people.map(person => person.textContent);
+
+// convert to array
+const peopleArray = Array.from(people);
+
+console.log(peopleArray) // ["Mike", "Michael", "Mikey"]
+
+```
+
+- can take a second argument that is a map function
+
+```html
+
+<div class="people">
+  <p>Mike</p>
+  <p>Michael</p>
+  <p>Mikey</p>
+</div>
+
+```
+
+```js
+
+const people = document.querySelectorAll('.people p');
+
+const peopleArray = Array.from(people, person => person.textContent);
+
+console.log(peopleArray) // ["Mike", "Michael", "Mikey"]
+
+```
+
+### .of()
+
+- on `Array` object itself, not on prototype
+- creats a new `Array` instance with all passed arguments, reguardless of type
+
+```js
+
+Array.of(1);         // [1]
+Array.of(1, 2, 3);   // [1, 2, 3]
+Array.of(undefined); // [undefined]
+
+```
+
+### .find()
+
+-  executes the callback function once for each element present in the array until it finds one where callback returns a true value
+-  if an element is found, it returns its value, otherwise undefined is returned
+- does not mutate the array on which it is called
+- [.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) is similar to [.find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find), but returns multiple results as an array
+
+```js
+
+const classes = [
+  {
+    "name": "english",
+    "id": 1234,
+    "level": 1
+  },
+  {
+    "name": "algebra",
+    "id": 5678,
+    "level": 1
+  },
+  {
+    "name": "history",
+    "id": 5432,
+    "level": 1
+  },
+  {
+    "name": "algebra",
+    "id": 2134,
+    "level": 2
+  },
+];
+
+var historyClass = classes.find(post => post.name === "history");
+
+console.log(historyClass.id) // 5432
+```
+
+### .findIndex()
+
+-  executes the callback function once for each element present in the array until it finds one where callback returns a true value
+-  if an element is found, it returns its index, otherwise `-1` is returned
+- does not mutate the array on which it is called
+
+
+```js
+
+var historyClass = classes.findIndex(post => post.name === "history");
+
+console.log(historyClass); // 2
+
+```
+
+
+
+### links
+
+- [mdn - from()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from)
+- [mdn - of()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/of)
+- [mdn - find()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+- [mdn - findIndex()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)
+- [ES6 Overview: Array](https://ponyfoo.com/articles/es6#array)
