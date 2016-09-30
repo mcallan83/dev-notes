@@ -566,7 +566,7 @@ const person = {
   }
 }
 
-const {facebook: fbs} =  person.links.social;
+const {facebook: fb} =  person.links.social;
 
 console.log(fb) // 'http://facebook.com/jsmith'
 
@@ -716,6 +716,9 @@ Iterables & Looping
 
 ### for
 
+- consists of three optional expressions, enclosed in parentheses and separated by semicolons
+- complicated syntax
+
 ```js
 
 const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
@@ -731,10 +734,11 @@ for (let i = 0; i < animals.length; i++) {
 
 ```
 
-### forEach
+### for each
 
 - simpler syntax
-- cannot use break or continue within loop body
+- cannot use [break](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/break) or [continue](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/continue) within loop body
+- executes a provided function once per array element
 
 ```js
 
@@ -749,10 +753,10 @@ animals.forEach((animal) => console.log(animal));
 
 ```
 
-### forIn
+### for in
 
-- only loops over index value
-- iterates of everything added to the array (even a function added to the prototype)
+- iterates over all enumerable properties of an object (even a method added to the prototype) in arbitrary order
+- loops in in arbitrary order
 
 ```js
 
@@ -772,10 +776,35 @@ for (const index in animals) {
 
 ```
 
-### forOf
+- use [hasOwnProperty()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty) to skip inherited properties
 
-- can't use with objects
-- doesn't interate of stuff added to the array, just array items
+```js
+
+var triangle = {a:1, b:2, c:3};
+
+function ColoredTriangle() {
+  this.color = "red";
+}
+
+ColoredTriangle.prototype = triangle;
+
+var obj = new ColoredTriangle();
+
+for (var prop in obj) {
+  if( obj.hasOwnProperty( prop ) ) {
+    console.log("obj." + prop + " = " + obj[prop]);
+  } 
+}
+
+// "obj.color = red"
+
+```
+
+### for of
+
+- can't use with objects (directly)
+- syntax is specific to collections, rather than all objects
+- will iterate over the elements of any collection that has a `Symbol.iterator` property
 
 ```js
 
@@ -830,7 +859,6 @@ for(const animal of animals) {
 
 ```js
 
-
 const animals = ['Cat', 'Dog', 'Fish', 'Turtle'];
 
 for (const animal of animals.entries()) {
@@ -852,5 +880,33 @@ for (const [i, animal] of animals.entries()) {
 // 2 "Fish"
 // 3 "Turtle"
 
+```
+
+### iterating over objects
+
+```js
+
+const dog = {
+  size: 'Small',
+  color: 'Black',
+  weight: 25
+};
+
+for (const prop of Object.keys(dog)) {
+  const value = dog[prop];
+  console.log(prop, value);
+}
+
+// size Small
+// color Black
+// weight 25
 
 ```
+
+
+### links
+
+- [mdn - for in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in)
+- [mdn - for of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of)
+- [mdn - for](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for)
+- [mdn - forEach()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
